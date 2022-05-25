@@ -280,7 +280,7 @@ def main():
             revision=model_args.model_revision,
             use_auth_token=True if model_args.use_auth_token else None,
             beta=model_args.beta,
-            rational=False,
+            rational=True,
         )
     else:
         model = RobertaForConversationalQuestionAnsweringWithClassHead.from_pretrained(

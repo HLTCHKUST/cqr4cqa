@@ -78,7 +78,30 @@ sh eval_convqa.sh
 
 
 ### Reinforcement learning approach to integrate QR in conversational QA
-TBA
+Our code for Proximal Policy Optimization (PPO) is modified from [trl](https://github.com/lvwerra/trl).
+1. To train the QR model with PPO, run:
+```
+sh run_ppo.sh
+```
+You can download trained models: [QReCC+CoQA](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/ESdJ5q8Rrv9NjyZJ54tZyIwBmLplJRxSmDM7XoE-DnC0Yw?e=HrPvW9), [CANARD+CoQA](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/EZca-XQCTntPmfTOswm1TTIBhyj59pQQGCWWWFWf2Y41lA?e=LKSG1X), [QReCC+QuAC](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/ESHdoWESsNhFklYkNxKFMigBW7mA0z00LQZfhJaIUfZYFg?e=chJxT8), [CANARD+QuAC](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/EV3CcEHWNlBDriRR69V1sOkBNuAtfj0Ex5VjI8eDktdaDQ?e=pZVpBo).
+
+2. To evaluate the trained model, run:
+```
+sh eval_ppo.sh
+```
+3. If you want to evaluate models using the metrics reported in the leaderboards, run:
+```
+python src/modules/convqa_evaluator.py --data coqa --pred-file <path to the model folder>/predictions_test.json --data-file data/coqa/coqa-dev-v1.0.json --out-file <path to the model folder>/all_test_results.txt
+```
+```
+python src/modules/convqa_evaluator.py --data quac --pred-file <path to the model folder>/predictions_test.json --data-file data/quac/val-v0.2.json --out-file <path to the model folder>/all_test_results.txt
+```
+
+4. We also support the REINFORCE algorithm to train the QR model. You can run:
+```
+sh run_reinforce.sh
+```
+Note that you can evaluate trained models by simply modifying the path to the models of `eval_ppo.sh` even if the QR model is trained with REINFORCE.
 
 ### Supervised learning approach to integrate QR in conversational QA
 TBA
