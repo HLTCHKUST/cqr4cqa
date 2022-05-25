@@ -1,0 +1,24 @@
+CUDA_VISIBLE_DEVICES=0 python run_convqa.py \
+ --dataset_name  'src/data_utils/coqa.py'\
+ --dataset_config_name coqa_rc \
+ --model_name_or_path save/roberta-base-coqa \
+ --eval_coqa \
+ --do_eval \
+ --early_stop \
+ --early_stopping_patience 3 \
+ --logging_steps 100 \
+ --save_steps 500 \
+ --num_train_epochs 10 \
+ --max_seq_length 512 \
+ --max_answer_length 50 \
+ --doc_stride 128  \
+ --cache_dir cache\
+ --output_dir save/roberta-base-coqa \
+ --overwrite_output_dir  \
+ --per_device_eval_batch_size 4 \
+ --evaluation_strategy epoch \
+ --load_best_model_at_end \
+ --early_stopping_patience 3 \
+ --metric_for_best_model exact_match \
+ --warmup_steps 1000 \
+ --weight_decay 0.01 
