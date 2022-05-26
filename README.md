@@ -104,7 +104,23 @@ sh run_reinforce.sh
 Note that you can evaluate trained models by simply modifying the path to the models of `eval_ppo.sh` even if the QR model is trained with REINFORCE.
 
 ### Supervised learning approach to integrate QR in conversational QA
-TBA
+We evaluate with a simple supervised learning approach using rewrites provided by CANARD. 
+You can download the QuAC subset that has the CANARD annotations [here](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/EVKnqO3nz7RFqdI2Ltp8IN4BhWmEBUUbFUvSom90pvKXkg?e=x71IoB).
+1. To evaluate the CANARD annotations with the [QA model trained on QuAC](https://hkustconnect-my.sharepoint.com/:u:/g/personal/eishii_connect_ust_hk/EbVZJDy8V4JOiaVTR0i81PQBe6xYm-hq9kVIEviUf0m55Q?e=8lyg6N), simply change the path to datasets in `src/data_utils/quac.py` and run:
+```
+sh eval_convqa.sh
+```
+
+2. To train another QA model with the CANARD annotations, change the path to datasets in `src/data_utils/quac.py` in the same way as above, run:
+```
+sh run_quac.sh
+```
 
 ### Data augmentation approach to integrate QR in conversational QA
-TBA
+First, we generate 10 possible rewrites using top-k sampling for all the questions of the CQA datasets. 
+To guarantee the quality of the rewrites, we select the best F1 scoring ones from every 10 candidates and use them to teach another QR model how to reformulate questions.
+1. To generate annotations, run:
+```
+sh run_augmentation.sh
+```
+2. Then, train a QR model with `run_qrewrite.py` (refer to `run_qrewrite.sh`) by changing the path to datasets.
